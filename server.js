@@ -10,7 +10,7 @@ app.use(express.json());
 app.use(express.static("app/public"));
 
 // Router
-// require("./routing/apiRoutes")(app);
+require("./routing/api")(app);
 require("./routing/router")(app);
 
 app.listen(PORT, function() {
