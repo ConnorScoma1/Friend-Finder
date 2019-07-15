@@ -11,6 +11,9 @@
     "type": "git",
     "url": "git+https://github.com/ConnorScoma1/Friend-Finder.git"
   },
+  "engines": {
+    "node": "0.12.7"
+  },
   "author": "",
   "license": "ISC",
   "bugs": {
