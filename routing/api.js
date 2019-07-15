@@ -5,33 +5,36 @@ module.exports = function(app) {
     res.json(friendsData);
   });
 
-  app.post("api/friends", function(req, res) {
-    var newFriend = req.body;
-    var friendScore = req.body.scores;
+  app.post("/api/friends", function(req, res) {
+    var newfriend = req.body;
+    var newFriendScore = req.body.scores;
 
     var lastDiff = 41;
-    friendNum = 0;
+    var friendNum = 0;
 
     for (var i = 0; i < friendsData.length; i++) {
       var totalDiff = 0;
+
       for (var j = 0; j < newFriendScore.length; j++) {
         if (newFriendScore[j] > friendsData[i].scores[j]) {
           var diffScore = newFriendScore[j] - friendsData[i].scores[j];
-        } else if (newFriendScore < friendsData[i].scores[j]) {
+        } else if (newFriendScore[j] < friendsData[i].scores[j]) {
           var diffScore = friendsData[i].scores[j] - newFriendScore[j];
         }
         totalDiff += diffScore;
       }
       if (totalDiff < lastDiff) {
         lastDiff = totalDiff;
-        friendNum[i];
+        friendNum = i;
       }
     }
 
-    console.log("Your Best Matched Friend is " + friendsData[friendNum].name);
+    console.log(
+      "You're best matched gamer-friend is: " + friendsData[friendNum].name
+    );
 
-    friendsData.push(newFriend);
+    friendsData.push(newfriend);
 
-    res.send(friendData[friendNum]);
+    res.send(friendsData[friendNum]);
   });
 };

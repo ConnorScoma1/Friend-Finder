@@ -206,7 +206,7 @@
       </form>
 
       <div class="newButton text-center">
-        <button id="survey-btn" class="btn btn-info">
+        <button id="submit-btn" class="btn btn-info">
           Submit
         </button>
       </div>
@@ -224,46 +224,48 @@
     </div>
 
     <script>
-    $(".close, #match-name").on("click", function(){
-        $(".bg-modal").css("display", "none");
-        $('html, body').css({
-            overflow: 'auto',
-            height: 'auto'
-        }); 
-    });
-
-    $('submit-btn').on('click', function(){
-      event.preventDefault();
-
-      $('.bg-modal').css('display', 'flex');
-
-      $('html, body').css({
-        overflow: 'hidden',
-        height: '100%'
-      })
-
-      var userData = {
-        name: $('#user-name').trim().val(),
-        scores: [
-          $('#q1').val(),
-          $('#q2').val(),
-          $('#q3').val(),
-          $('#q4').val(),
-          $('#q5').val(),
-          $('#q6').val(),
-          $('#q7').val(),
-          $('#q8').val(),
-          $('#q9').val(),
-          $('#q10').val()
-        ]
-      }
-
-      console.log(userData)
-
-      $.post('/api/friends', userData, function(data){
-        $('#match-name').text(data.name);
-      })
-    })
+        // click functionality to close modal.
+        $(".close, #match-name").on("click", function(){
+            $(".bg-modal").css("display", "none");
+            $('html, body').css({
+                overflow: 'auto',
+                height: 'auto'
+            }); 
+        });
+        // click functionality for submit button.
+        $("#submit-btn").on("click", function(){
+            event.preventDefault();
+            // display modal.
+            $(".bg-modal").css("display", "flex");
+            // lock scrolling
+            $('html, body').css({
+                overflow: 'hidden',
+                height: '100%'
+            }); 
+            // Instantiate the object userData and assign the survey data as key pairs.
+            var userData = {
+                name: $("#user-name").val(),
+                scores: [
+                    $("#q1").val(),
+                    $("#q2").val(),
+                    $("#q3").val(),
+                    $("#q4").val(),
+                    $("#q5").val(),
+                    $("#q6").val(),
+                    $("#q7").val(),
+                    $("#q8").val(),
+                    $("#q9").val(),
+                    $("#q10").val()
+                ]
+            };
+            // displays (within the client's console) the instantiated object comprised of user's survey answers.
+            console.log(userData);
+            $.post("/api/friends", userData, function(data) {
+                console.log(data);
+                // Take result from POST and display the best match's name and photo (in modal)
+                $("#match-name").text(data.name);
+            });
+        });
     </script>
   </body>
 </html>
